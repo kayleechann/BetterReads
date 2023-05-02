@@ -1,10 +1,11 @@
 import styled from  'styled-components'
 import DetailBook from "./DetailBook"
 
-export default function BookList({books}) {
-    //for each  book in our books data array, return  a Book
+export default function DetailList({books}) {
+    console.log(books)
     return <Wrapper>
-        { books.map(b => <DetailBook title={b.title} author ={b.author} pages={b.pages} link={b.link} imagelink={b.imagelink}/>)}
+        <DetailBook title={books.title} author ={books.author} pages={books.pages} link={books.link}
+        country = {books.country} language = {books.language} year = {books.year}/>
     </Wrapper>
 }
 

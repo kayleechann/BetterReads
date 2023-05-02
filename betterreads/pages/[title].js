@@ -8,7 +8,7 @@ import {
 } from '../components/sharedstyles'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
-import DetailBook from '../components/DetailBook'
+import DetailList from '../components/DetailList'
 
 // function to fetch particular url and return the data as json
 const fetcher = url => fetch(url).then(r => r.json())
@@ -21,7 +21,8 @@ export default function BookDetail() {
   //const { data,error } = useSWR('api/books', fetcher)
   //instead of getting all of the books, get title using api route
   // want to be able to go to a page like ==> http://localhost:3000/[title]
-  const { data,error } = useSWR(`api/books/${title}`, fetcher)
+  const { data, error } = useSWR(`api/books/${title}`, fetcher)
+
 
   if (error){
     return <Main>
@@ -44,9 +45,7 @@ export default function BookDetail() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        {JSON.stringify(data)}
-      
-      <DetailBook books = {data[0]} />
+        <DetailList books = {data[0]} />
       </Main>
     </Container>
   )
