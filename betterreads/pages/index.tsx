@@ -5,10 +5,44 @@ import {
   Title,
   Description,
   CodeTag,
+  BookShelf
 } from '../components/sharedstyles'
 import Cards from '../components/cards'
+import useSWR from 'swr'
+import BookList from '../components/BookList'
+import Book from '../components/Book'
+
+
+// function to fetch particular url and return the data as json
+const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Home() {
+  // vaariables that store our data and if there's ane error
+  // first param is path of the api endpoint (what will be fetched)
+  // second para is the fetcher function that should execute to get the data
+  // data will be json if correct
+  // error will be error object, data is undefined 
+  const { data,error } = useSWR('api/books', fetcher)
+
+  // 3 states of front end styles
+  // if the api encountersan error,the api will load this
+  if (error){
+    return <Main>
+      Error!
+    </Main>
+  }
+
+  //or like weather app, you can have a fallback to 
+  // fetch data and lload a deafult 
+  // loadingstate --> if the data has not been resolved yet, this loads
+  //  can also return a loading spinner  
+  if (!data){ 
+    return <Main>
+      Loading...
+    </Main>
+  }
+
+  // if the data comes back as expected,  this renders
   return (
     <Container>
       <Head>
@@ -17,16 +51,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <Title>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </Title>
-
-        <Description>
-          Get started by editing
-          <CodeTag>pages/index.tsx</CodeTag>
-        </Description>
-
-        <Cards />
+        {/*{JSON.stringify(data)}*/}
+        {/*<Book title= "The Color Purple" author= "Alice Walker"
+        pages = "123" link="" />*/}
+        <h1>BetterReads</h1>
+        {/*<BookList  books = {data}></BookList>*/}
+        <BookShelf>
+        <BookList books = {data}></BookList>
+        </BookShelf>
+        
       </Main>
     </Container>
   )

@@ -18,6 +18,12 @@ const Main = styled.main`
   align-items: center;
 `
 
+const BookShelf = styled.div`
+  width: 1200px;
+  height: 600px;
+  margin: auto;
+`
+
 const Title = styled.h1`
   margin: 0;
   line-height: 1.15;
@@ -51,4 +57,4 @@ const CodeTag = styled.code`
     Bitstream Vera Sans Mono, Courier New, monospace;
 `
 
-export { Container, Main, Title, Description, CodeTag }
+export { Container, Main, Title, Description, CodeTag, BookShelf }
